@@ -1,3 +1,6 @@
+# Jetbrains editor
+.idea/
+
 # Logs
 logs
 *.log
