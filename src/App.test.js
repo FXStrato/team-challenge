@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SignUpForm from './TeamSignUp';
-import {shallow} from 'enzyme';
+import SignUpForm, {RequiredInput} from './TeamSignUp';
+import {shallow, render} from 'enzyme';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -14,6 +14,12 @@ it('renders without crashing', () => {
 
 // Name field test
 
+describe('name-field-input', () => {
+  it('should check that error message for name is displayed', () => {
+    const wrapper = render(<RequiredInput value="" errorMessage="we need to know your name" />);
+    expect(wrapper.find('p').text ()).toEqual('we need to know your name');
+  });
+});
 
 // Birthday field tests
 
@@ -25,3 +31,4 @@ it('renders without crashing', () => {
 
 
 // Form Submit tests
+
