@@ -16,7 +16,7 @@ it('renders without crashing', () => {
 
 describe('name-field-input', () => {
   it('should check that error message for name is displayed', () => {
-    const wrapper = render(<RequiredInput value="" errorMessage="we need to know your name" />);
+    const wrapper = shallow(<RequiredInput value="" errorMessage="we need to know your name" />);
     expect(wrapper.find('p').text ()).toEqual('we need to know your name');
   });
 });
