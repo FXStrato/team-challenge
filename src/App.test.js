@@ -25,3 +25,15 @@ it('renders without crashing', () => {
 
 
 // Form Submit tests
+
+describe('submit-button', () => {
+  it('should enable button when all fields are valid', () => {
+
+  });
+
+  it('should check that a submit message is displayed', () => {
+    const wrapper = shallow(<button />).simulate('click');
+    expect(wrapper.find('button').text()).toEqual('Submitted!');
+  });
+});
+
