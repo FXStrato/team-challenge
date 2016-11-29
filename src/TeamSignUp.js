@@ -106,7 +106,7 @@ class EmailInput extends React.Component {
     //pattern comparison from w3c https://www.w3.org/TR/html-markup/input.email.html#input.email.attrs.value.single
     var valid = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(currentValue)
     if(!valid){
-      return {invalidEmail:true, isValid:false};
+      return {invalid:true, isValid:false};// bug in the emailinput part
     }
 
     return {isValid: true}; //no errors
@@ -130,7 +130,7 @@ class EmailInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if(!errors.isValid) inputStyle += ' invalid'; //add styling rule
+    if(!errors.isValid) inputStyle += ' invalid has-error'; //add styling rule
 
     return (
       <div className={inputStyle}>
@@ -159,7 +159,6 @@ class RequiredInput extends React.Component {
     if(currentValue === ''){ //check presence
       return {required: true, isValid: false};
     }
-
     return {isValid: true}; //no errors
   }
 
@@ -180,7 +179,7 @@ class RequiredInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if(!errors.isValid) inputStyle += ' invalid';
+    if(!errors.isValid) inputStyle += ' invalid has-error';
 
     return (
       <div className={inputStyle}>
@@ -239,7 +238,7 @@ class BirthdayInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if(!errors.isValid) inputStyle += ' invalid';
+    if(!errors.isValid) inputStyle += ' invalid has-error';
 
     return (
       <div className={inputStyle}>
@@ -293,7 +292,7 @@ class PasswordConfirmationInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if(!errors.isValid) inputStyle += ' invalid';
+    if(!errors.isValid) inputStyle += ' invalid has-error';
 
     return (
       <div className={inputStyle}>
