@@ -52,6 +52,9 @@ class SignUpForm extends React.Component {
         </div>
         <div className="row">
           <div className="col-sm-6">
+            <div id="success-banner" className="alert alert-success">
+              <strong>Success!</strong> You have signed up for our imaginary service!
+            </div>
             <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
               <EmailInput value={this.state.email.value} updateParent={this.updateState} />
