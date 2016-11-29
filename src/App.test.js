@@ -18,13 +18,22 @@ it('renders without crashing', () => {
 // Birthday field tests
 describe('<BirthdayInput /> component', () => {
 
-  it('should have an invalid input for a birthday less than 13 years ago', () => {
+  it('should have an invalid message for a birthday less than 13 years ago', () => {
     const wrapper = shallow(<BirthdayInput value="02/27/2016"/>);
-    //finds whatever it needs to find
     expect(wrapper.find('.error-not-old').length).toEqual(1);
   });
 
+  it('should have an invalid message for a birthday that does not fit proper date syntax',() => {
 
+  });
+
+  it('should have an invalid message for a birthday that has no text',() => {
+
+  });
+
+  it('should not have a message if the birthday is valid',() => {
+
+  });
 
 });
 
