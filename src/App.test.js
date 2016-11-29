@@ -28,12 +28,15 @@ it('renders without crashing', () => {
 
 describe('submit-button', () => {
   it('should enable button when all fields are valid', () => {
-
+    const wrapper = shallow(<button />).simulate('click');
+    expect(wrapper.find('button').props().disabled).toEqual(false);
   });
 
   it('should check that a submit message is displayed', () => {
     const wrapper = shallow(<button />).simulate('click');
     expect(wrapper.find('button').text()).toEqual('Submitted!');
+
+
   });
 });
 
