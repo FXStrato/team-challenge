@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import moment from 'moment';
-
+import $ from 'jquery';
 
 
 /**
@@ -19,6 +19,9 @@ class SignUpForm extends React.Component {
     };
 
     this.updateState = this.updateState.bind(this); //bind for scope
+    this.handleSubmit = this.handleSubmit.bind(this); //bind for scope
+    this.handleReset = this.handleReset.bind(this); //bind for scope
+    this.clearedInputs = this.clearedInputs.bind(this); //bind for scope
   }
 
   //callback for updating the state with child information
@@ -29,15 +32,26 @@ class SignUpForm extends React.Component {
   //callback for the reset button
   handleReset(event) {
     console.log('Reset!');
-    var emptyState = {};
+    var emptyState = this.clearedInputs(false);
     this.setState(emptyState);
   }
 
   //callback for the submit button
   handleSubmit(event) {
     event.preventDefault();
-    console.log('Submitted!');
-    this.props.submitCallback(this.state);
+    var clearedState = this.clearedInputs(true);
+    this.setState(clearedState);
+  }
+
+  clearedInputs(isValid) {
+    var emptySpace = {
+      email:{value:'',valid:isValid},
+      name:{value:'',valid:isValid},
+      dob:{value:'',valid:isValid},
+      password:{value:'',valid:isValid},
+      passwordConf:{value:'',valid:isValid}
+    };
+    return emptySpace;
   }
 
   render() {
