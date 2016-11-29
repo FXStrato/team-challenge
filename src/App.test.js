@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import SignUpForm from './TeamSignUp';
 import {RequiredInput, PasswordConfirmationInput} from './TeamSignUp';
+import SignUpForm, {RequiredInput, PasswordConfirmationInput, BirthdayInput} from './TeamSignUp';
 import {shallow, render} from 'enzyme';
 import sinon from 'sinon';
 
@@ -25,7 +26,27 @@ describe('name-field-input', () => {
 });
 
 // Birthday field tests
+describe('<BirthdayInput /> component', () => {
+  it('should have an invalid message for a birthday less than 13 years ago', () => {
+    const wrapper = shallow(<BirthdayInput value="02/27/2016"/>);
+    expect(wrapper.find('.error-not-old').length).toEqual(1);
+  });
 
+  it('should have an invalid message for a birthday that does not fit proper date syntax',() => {
+    const wrapper = shallow(<BirthdayInput value="not/right/syntax"/>);
+    expect(wrapper.find('.error-invalid').length).toEqual(1);
+  });
+
+  it('should have an invalid message for a birthday that has no text',() => {
+    const wrapper = shallow(<BirthdayInput value=""/>);
+    expect(wrapper.find('.error-missing').length).toEqual(1);
+  });
+
+  it('should not have a message if the birthday is valid',() => {
+    const wrapper = shallow(<BirthdayInput value="02/27/2016"/>);
+    expect(wrapper.find('alert-danger').length).toEqual(0);
+  });
+});
 
 // The password and password confirmation fields
 describe('Password and Password Confirmation Check', () => {
@@ -34,7 +55,7 @@ describe('Password and Password Confirmation Check', () => {
     const passwordConfirmWrapper = shallow(<PasswordConfirmationInput/>);
     expect(passwordWrapper.find('p').text()).toEqual("password can't be blank");
     expect(passwordConfirmWrapper.find('p'));
-  })
+  });
 
   it('should validate password creation and confirmation correctly', () => {
     const passwordSpy = sinon.spy(); //spy for validate method
@@ -51,7 +72,7 @@ describe('Password and Password Confirmation Check', () => {
     expect(passwordSpy.getCall(3).args[0]).toEqual({"passwordConf": {"valid": true, "value": "Mix"}});
   })
 
-})
+});
 
 // Form Reset Tests
 
