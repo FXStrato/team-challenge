@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SignUpForm, {RequiredInput, PasswordConfirmationInput, BirthdayInput} from './TeamSignUp';
-import {shallow, render} from 'enzyme';
+import SignUpForm, {RequiredInput, PasswordConfirmationInput, BirthdayInput, EmailInput} from './TeamSignUp';
+import {shallow, render, mount} from 'enzyme';
 import sinon from 'sinon';
 
-// it('renders without crashing', () => {
-//   const div = document.createElement('div');
-//   ReactDOM.render(<SignUpForm />, div);
-// });
+it('renders without crashing', () => {
+  const div = document.createElement('div'); 
+  ReactDOM.render(<SignUpForm />, div);
+});
 
 
 // Email Address tests
@@ -39,7 +39,6 @@ describe('should get a valid email address input', () =>{
 
 
 // Name field test
-
 describe('name-field-input', () => {
   it('should check that error message for name is displayed', () => {
     const wrapper = shallow(<RequiredInput value="" errorMessage="we need to know your name" />);
@@ -101,16 +100,22 @@ describe('Password and Password Confirmation Check', () => {
 
 // Form Submit tests
 describe('submit-button', () => {
-  it('should enable button when all fields are valid', () => {
-    const wrapper = shallow('<SignUpForm/>');
-    wrapper.find('#submit-button').simulate('click');
-    const button = wrapper.find('#submit-button');
+  it('enable button should be initally disabled', () => {
+    const wrapper = mount(<SignUpForm/>);
+    const button = wrapper.find('#submitButton');
     expect(button.props().disabled).toEqual(true);
   });
 
-  
+  it('should enable button when all fields are valid', () => {
+    const wrapper = mount(<SignUpForm/>);
+    const button = wrapper.find('#submitButton');
+    wrapper.find('#email').simulate('change',{target:{value:"a@gmail.com"}});
+    wrapper.find('#name').simulate('change',{target:{value:"aaaaaaaaa"}});
+    wrapper.find('#dob').simulate('change',{target:{value:"12/12/2000"}});
+    wrapper.find('#password').simulate('change',{target:{value:"a"}});
+    wrapper.find('#passwordConf').simulate('change',{target:{value:"a"}});
+    expect(button.props().disabled).toEqual(false);
+  })
 
-
-  // });
 });
 
