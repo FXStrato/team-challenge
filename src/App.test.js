@@ -97,7 +97,19 @@ describe('Password and Password Confirmation Check', () => {
 });
 
 // Form Reset Tests
-
+//broken but really close to working
+describe('<SignUpForm resetButton /> component', () => {
+  it('resetButton should remove all the values', () => {
+    const wrapper = shallow(<SignUpForm />);
+    const resetButton = wrapper.find('#reset-button');
+    resetButton.simulate('click');
+    expect(wrapper.find('#email').value).toEqual("");
+    expect(wrapper.find('#name').value).toEqual("");
+    expect(wrapper.find('#dob').value).toEqual("");
+    expect(wrapper.find('#password').value).toEqual("");
+    expect(wrapper.find('#passwordConf').value).toEqual("");
+  });
+});
 
 // Form Submit tests
 
