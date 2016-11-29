@@ -36,12 +36,13 @@ class SignUpForm extends React.Component {
     event.preventDefault();
     console.log('Submitted!');
     this.props.submitCallback(this.state);
+    this.userSubmitted = true;
   }
 
   render() {
     //if all fields are valid, button should be enabled
-    var buttonEnabled = !(this.state.email.valid && this.state.name.valid && this.state.dob.valid && this.state.password.valid);
-
+    var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.valid && this.state.passwordConf.valid);
+    console.log(buttonEnabled);
     return (
       <div className="container">
         <div className="row">
@@ -51,12 +52,10 @@ class SignUpForm extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-6">
-            {state.userSubmitted && 
+          <div className="col-sm-6"> 
               <div id="success-banner" className="alert alert-success">
                 <strong>Success!</strong> You have signed up for our imaginary service!
               </div>
-            }
             <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
               <EmailInput value={this.state.email.value} updateParent={this.updateState} />
@@ -82,7 +81,7 @@ class SignUpForm extends React.Component {
               {/* Submit Buttons */}
               <div className="form-group">
                 <button id="resetButton" type="reset" className="btn btn-default" onClick={(e)=>this.handleReset(e)}>Reset</button> {' ' /*space*/}
-                <button id="submitButton" type="submit" className="btn btn-primary" disabled={buttonEnabled}>Sign Me Up!</button>
+                <button id="submitButton" type="submit" className="btn btn-primary" disabled={!buttonEnabled}>Sign Me Up!</button>
               </div>
             </form>
           </div>
