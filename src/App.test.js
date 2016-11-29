@@ -23,7 +23,7 @@ it('renders without crashing', () => {
 // The password and password confirmation fields
 describe('Password and Password Confirmation Check', () => {
   it('should render properly', () => {
-    const passwordWrapper = render(<RequiredInput value="" errorMessage="password can't be blank" />);
+    const passwordWrapper = shallow(<RequiredInput value="" errorMessage="password can't be blank" />);
     const passwordConfirmWrapper = shallow(<PasswordConfirmationInput/>);
     expect(passwordWrapper.find('p').text()).toEqual("password can't be blank");
     expect(passwordConfirmWrapper.find('p'));
@@ -31,18 +31,17 @@ describe('Password and Password Confirmation Check', () => {
 
   it('should validate password creation and confirmation correctly', () => {
     const passwordSpy = sinon.spy(); //spy for validate method
-    const passwordConfirmSpy = sinon.spy();
     const passwordWrapper = shallow(<RequiredInput updateParent={passwordSpy}/>);
-    const passwordConfirmWrapper = shallow(<PasswordConfirmationInput updateParent={passwordConfirmSpy}/>);
+    const passwordConfirmWrapper = shallow(<PasswordConfirmationInput updateParent={passwordSpy}/>);
     passwordWrapper.find('input').simulate('change',{target:{value:'Mix'}});
     passwordConfirmWrapper.setProps({password: 'Mix'});
     passwordConfirmWrapper.find('input').simulate('change',{target:{value:'Max'}});
     expect(passwordSpy.getCall(0).args[0]).toEqual({"undefined": {"valid": true, "value": "Mix"}});
-    expect(passwordConfirmSpy.getCall(0).args[0]).toEqual({"passwordConf": {"valid": false, "value": "Max"}});
-    passwordConfirmWrapper.find('input').simulate('change',{target:{value:'Mix'}});
+    expect(passwordSpy.getCall(1).args[0]).toEqual({"passwordConf": {"valid": false, "value": "Max"}});
     passwordWrapper.find('input').simulate('change',{target:{value:''}});
-    expect(passwordSpy.getCall(1).args[0]).toEqual({"undefined": {"valid": false, "value": ""}});
-    expect(passwordConfirmSpy.getCall(1).args[0]).toEqual({"passwordConf": {"valid": true, "value": "Mix"}});
+    passwordConfirmWrapper.find('input').simulate('change',{target:{value:'Mix'}});
+    expect(passwordSpy.getCall(2).args[0]).toEqual({"undefined": {"valid": false, "value": ""}});
+    expect(passwordSpy.getCall(3).args[0]).toEqual({"passwordConf": {"valid": true, "value": "Mix"}});
   })
 
 })
@@ -54,8 +53,8 @@ describe('Password and Password Confirmation Check', () => {
 
 describe('submit-button', () => {
   it('should enable button when all fields are valid', () => {
-    const wrapper = shallow(<button />).simulate('click');
-    expect(wrapper.find('button').props().disabled).toEqual(false);
+    const wrapper = shallow('<SignUpForm/>').simulate('click');
+    expect(wrapper.find('#submit-button').props().disabled).toEqual(false);
   });
 
   it('should check that a submit message is displayed', () => {
