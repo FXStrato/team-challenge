@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import SignUpForm from './TeamSignUp';
-import {RequiredInput, PasswordConfirmationInput} from './TeamSignUp';
 import SignUpForm, {RequiredInput, PasswordConfirmationInput, BirthdayInput} from './TeamSignUp';
 import {shallow, render} from 'enzyme';
 import sinon from 'sinon';
