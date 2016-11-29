@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 
+
 /**
  * The overall form component
  */
@@ -172,7 +173,7 @@ class RequiredInput extends React.Component {
                 value={this.props.value}
                 onChange={(e) => this.handleChange(e)}
         />
-        {errors &&
+        {!errors.isValid &&
           <p className="help-block error-missing">{this.props.errorMessage}</p>
         }
       </div>
@@ -254,7 +255,7 @@ class BirthdayInput extends React.Component {
  */
 class PasswordConfirmationInput extends React.Component {
   validate(currentValue){
-    if(currentValue === '' || this.props.password === ''){ //check both entries
+    if(currentValue !== this.props.password){ //check both entries
       return {mismatched:true, isValid:false};
     }
 
@@ -267,7 +268,7 @@ class PasswordConfirmationInput extends React.Component {
 
     //what to assign to parent's state
     var stateUpdate = {
-      'passConf': {
+      'passwordConf': {
         value:event.target.value,
         valid:isValid
       }
