@@ -1,5 +1,7 @@
 /* eslint-disable */
 import React from 'react';
+import moment from 'moment';
+
 
 
 /**
@@ -141,7 +143,7 @@ class EmailInput extends React.Component {
           <p className="help-block error-missing alert alert-danger">We need to know your email address</p>
         }
         {errors.invalid &&
-          <p className="help-block error-invalid">This is not a valid email address</p>
+          <p className="help-block error-invalid alert alert-danger">This is not a valid email address</p>
         }
       </div>
     );
@@ -210,14 +212,11 @@ class BirthdayInput extends React.Component {
       return {notDate:true, isValid:false};
     }
 
-    //check age range
-    var d = new Date(); //today
-    d.setYear(d.getFullYear() - 13); //subtract 13 from the year
-    var minTimestamp = d.getTime();
-    if(timestamp < minTimestamp){
+    var now = moment();
+    var userBirthdayParsed = moment(currentValue, ["MM-DD-YYYY", "DD-MM-YYYY", "MM-DD-YY", "DD-MM-YY"]);
+    if(now.diff(userBirthdayParsed, 'years', true) < 13){
       return {notOldEnough:true, isValid:false}
     }
-
     return {isValid: true}; //no errors
   }
 
@@ -233,7 +232,7 @@ class BirthdayInput extends React.Component {
       }
     };
 
-    this.props.updateParent(stateUpdate) //update parent state
+    this.props.updateParent(stateUpdate); //update parent state
   }
 
   render() {
