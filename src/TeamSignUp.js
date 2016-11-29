@@ -218,7 +218,7 @@ class BirthdayInput extends React.Component {
       }
     };
 
-    this.props.updateParent(stateUpdate) //update parent state
+    this.props.updateParent(stateUpdate); //update parent state
   }
 
   render() {
