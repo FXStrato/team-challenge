@@ -31,18 +31,17 @@ describe('Password and Password Confirmation Check', () => {
 
   it('should validate password creation and confirmation correctly', () => {
     const passwordSpy = sinon.spy(); //spy for validate method
-    const passwordConfirmSpy = sinon.spy();
     const passwordWrapper = shallow(<RequiredInput updateParent={passwordSpy}/>);
-    const passwordConfirmWrapper = shallow(<PasswordConfirmationInput updateParent={passwordConfirmSpy}/>);
+    const passwordConfirmWrapper = shallow(<PasswordConfirmationInput updateParent={passwordSpy}/>);
     passwordWrapper.find('input').simulate('change',{target:{value:'Mix'}});
     passwordConfirmWrapper.setProps({password: 'Mix'});
     passwordConfirmWrapper.find('input').simulate('change',{target:{value:'Max'}});
     expect(passwordSpy.getCall(0).args[0]).toEqual({"undefined": {"valid": true, "value": "Mix"}});
-    expect(passwordConfirmSpy.getCall(0).args[0]).toEqual({"passwordConf": {"valid": false, "value": "Max"}});
-    passwordConfirmWrapper.find('input').simulate('change',{target:{value:'Mix'}});
+    expect(passwordSpy.getCall(1).args[0]).toEqual({"passwordConf": {"valid": false, "value": "Max"}});
     passwordWrapper.find('input').simulate('change',{target:{value:''}});
-    expect(passwordSpy.getCall(1).args[0]).toEqual({"undefined": {"valid": false, "value": ""}});
-    expect(passwordConfirmSpy.getCall(1).args[0]).toEqual({"passwordConf": {"valid": true, "value": "Mix"}});
+    passwordConfirmWrapper.find('input').simulate('change',{target:{value:'Mix'}});
+    expect(passwordSpy.getCall(2).args[0]).toEqual({"undefined": {"valid": false, "value": ""}});
+    expect(passwordSpy.getCall(3).args[0]).toEqual({"passwordConf": {"valid": true, "value": "Mix"}});
   })
 
 })
