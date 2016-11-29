@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import SignUpForm, {RequiredInput, PasswordConfirmationInput, BirthdayInput} from './TeamSignUp';
-import {shallow} from 'enzyme';
+import {shallow, render} from 'enzyme';
 import sinon from 'sinon';
 
 it('renders without crashing', () => {
@@ -15,6 +16,12 @@ it('renders without crashing', () => {
 
 // Name field test
 
+describe('name-field-input', () => {
+  it('should check that error message for name is displayed', () => {
+    const wrapper = shallow(<RequiredInput value="" errorMessage="we need to know your name" />);
+    expect(wrapper.find('p').text ()).toEqual('we need to know your name');
+  });
+});
 
 // Birthday field tests
 describe('<BirthdayInput /> component', () => {
@@ -69,3 +76,4 @@ describe('Password and Password Confirmation Check', () => {
 
 
 // Form Submit tests
+
