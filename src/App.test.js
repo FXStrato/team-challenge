@@ -23,7 +23,7 @@ it('renders without crashing', () => {
 // The password and password confirmation fields
 describe('Password and Password Confirmation Check', () => {
   it('should render properly', () => {
-    const passwordWrapper = render(<RequiredInput value="" errorMessage="password can't be blank" />);
+    const passwordWrapper = shallow(<RequiredInput value="" errorMessage="password can't be blank" />);
     const passwordConfirmWrapper = shallow(<PasswordConfirmationInput/>);
     expect(passwordWrapper.find('p').text()).toEqual("password can't be blank");
     expect(passwordConfirmWrapper.find('p'));
