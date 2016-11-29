@@ -16,7 +16,7 @@ describe('should get a valid email address input', () =>{
 
   it('show error if user left input box blank', () =>{
     const wrapper = shallow(<EmailInput value={''}/>);
-    expect(wrapper.find('.error-missing').text()).toEqual('we need to know your email address');
+    expect(wrapper.find('.error-missing').text()).toEqual('We need to know your email address');
     expect(wrapper.find('.error-missing').length).toEqual(1);
   })
 
@@ -28,7 +28,7 @@ describe('should get a valid email address input', () =>{
   it('show error if users give a invalid emaill address', () =>{
     const wrapper = shallow(<EmailInput value={'123@.com'}/>);
     expect(wrapper.find('.error-invalid').length).toEqual(1);
-    expect(wrapper.find('.error-invalid').text()).toEqual('this is not a valid email address');
+    expect(wrapper.find('.error-invalid').text()).toEqual('This is not a valid email address');
   })
 
   it('get a valid email address', () => {

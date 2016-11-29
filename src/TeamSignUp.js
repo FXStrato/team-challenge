@@ -138,7 +138,7 @@ class EmailInput extends React.Component {
                 onChange={(e) => this.handleChange(e)}
         />
         {errors.missing &&
-          <p className="help-block error-missing">We need to know your email address</p>
+          <p className="help-block error-missing alert alert-danger">We need to know your email address</p>
         }
         {errors.invalid &&
           <p className="help-block error-invalid">This is not a valid email address</p>
